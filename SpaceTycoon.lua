@@ -676,7 +676,9 @@ settings().Rendering.QualityLevel = 1
     Secs +=1
 end
 else
-    plr:Kick("Join the group!")
+    setclipboard("https://web.roblox.com/groups/7482906/fire-is-fire-no-liars#!/about")
+    wait(1)
+    plr:Kick("The group has been copied to your clipboard! Make sure to join")
 end
 
 
