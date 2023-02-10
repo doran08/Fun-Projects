@@ -47,13 +47,16 @@ local ForthTycoon = "ForthTycoon"
 local FifthTycoon = "FifthTycoon"
 local SixthTycoon = "SixthTycoon"
 
+--// BadPc
+
+local fpslimiter = 60
 
 
 
-for a,b in pairs(game:GetService("Workspace"):GetChildren()) do
+for a,b in pairs(game:GetService("Workspace"):GetDescendants()) do
 	if b.Name == "FirstTycoon" then
 		if b.OwnerName.Value == game.Players.LocalPlayer.Name then
-			print(b)
+			print("1")
 			tycoon = "FirstTycoon"
             
 	end
@@ -87,7 +90,6 @@ elseif b.Name == "SixthTycoon" then
         tycoon = "SixthTycoon"
         
 end
-
 end
 end
 
@@ -103,6 +105,7 @@ print("Anti-AFK has been loaded")
 
 --// Load Rayfield
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+
 
 local Window = Rayfield:CreateWindow({
     Name = "Space Tycoon",
@@ -270,7 +273,7 @@ local Toggle = Farm:CreateToggle({
                     break;
                 end
             end
-            end
+        end
         end
     end,
  })
@@ -342,8 +345,8 @@ local Toggle = Farm:CreateToggle({
                             wait(0.1)
                             firetouchinterest(Playerhead, v.Parent,1)
                             break;
+                    end
                 end
-            end
             end
         end
     end,
@@ -452,15 +455,15 @@ Rayfield:Notify({
                        firetouchinterest(Playerhead, v.Parent,1)
                     end
                 end 
-    elseif tycoon == FifthTycoon then
-        for i, v in pairs(game:GetService("Workspace").FifthTycoon:GetDescendants()) do -- touch interest
-            if v.Name == "TouchInterest" and v.Parent.Name == "Head"then
-            firetouchinterest(Playerhead, v.Parent,0)
+            elseif tycoon == FifthTycoon then
+                for i, v in pairs(game:GetService("Workspace").FifthTycoon:GetDescendants()) do -- touch interest
+                if v.Name == "TouchInterest" and v.Parent.Name == "Head"then
+                firetouchinterest(Playerhead, v.Parent,0)
                 wait(0.1)
                
                firetouchinterest(Playerhead, v.Parent,1)
             end
-        end 
+         end 
        end
     end,
  })
@@ -573,8 +576,90 @@ local Input = Calculate:CreateInput({
     end,
  })
 
- local Changelogs = Window:CreateTab("Changelogs", 4483362458) -- Title, Image
+ local FPS = Window:CreateTab("Bad PC Settings", 4483362458)
+ local Input = FPS:CreateInput({
+    Name = "Input FPS amount",
+    PlaceholderText = "Input Placeholder",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(Text)
+    fpslimiter = Text
+    end,
+ })
+ 
 
+ 
+ local Button = FPS:CreateButton({
+    Name = "Set FPS",
+    Callback = function()
+        print(fpslimiter)
+        setfpscap(tonumber(fpslimiter))
+        Rayfield:Notify({
+            Title = "FPS",
+            Content = "I have set the fps to "..fpslimiter,
+            Duration = 6.5,
+            Image = 4483362458,
+            Actions = { -- Notification Buttons
+               Ignore = {
+                  Name = "Okay!",
+                  Callback = function()
+                  print("The user tapped Okay!")
+               end
+            },
+         },
+         })
+    end,
+ })
+ local Button = FPS:CreateButton({
+    Name = "Ugly Graphics ",
+    Callback = function()
+        workspace:FindFirstChildOfClass('Terrain').WaterWaveSize = 0
+workspace:FindFirstChildOfClass('Terrain').WaterWaveSpeed = 0
+workspace:FindFirstChildOfClass('Terrain').WaterReflectance = 0
+workspace:FindFirstChildOfClass('Terrain').WaterTransparency = 0
+game:GetService("Lighting").GlobalShadows = false
+game:GetService("Lighting").FogEnd = 9e9
+settings().Rendering.QualityLevel = 1
+  for i, v in pairs(game:GetDescendants()) do
+	  if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") or v:IsA("CornerWedgePart") or
+					v:IsA("TrussPart") then
+					v.Material = "Plastic"
+					v.Reflectance = 0
+				elseif v:IsA("Decal") then
+					v.Transparency = 1
+				elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+					v.Lifetime = NumberRange.new(0)
+				elseif v:IsA("Explosion") then
+					v.BlastPressure = 1
+					v.BlastRadius = 1
+				end
+				end
+				for i, v in pairs(game:GetService("Lighting"):GetDescendants()) do
+					if v:IsA("BlurEffect") or v:IsA("SunRaysEffect") or v:IsA("ColorCorrectionEffect") or
+						v:IsA("BloomEffect") or v:IsA("DepthOfFieldEffect") then
+						v.Enabled = false
+					end
+				end
+				workspace.DescendantAdded:Connect(function(child)
+					coroutine.wrap(function()
+						if child:IsA('ForceField') then
+							game:GetService('RunService').Heartbeat:Wait()
+							child:Destroy()
+						elseif child:IsA('Sparkles') then
+							game:GetService('RunService').Heartbeat:Wait()
+							child:Destroy()
+						elseif child:IsA('Smoke') or child:IsA('Fire') then
+							game:GetService('RunService').Heartbeat:Wait()
+							child:Destroy()
+						end
+					end)()
+				end)
+    end,
+ })
+
+
+
+ local Changelogs = Window:CreateTab("Changelogs", 4483362458) -- Title, Image
+ local Section = Changelogs:CreateSection("February 10th: Added a bad pc section for people with bad pcs")
  local Section = Changelogs:CreateSection("February 9th: Added a calculator because why not")
  local Section = Changelogs:CreateSection("February 8th: Added a function timer, Added some things on the autofarms aswell")
  
@@ -591,8 +676,6 @@ local Input = Calculate:CreateInput({
     wait(1)
     Secs +=1
 end
-
-
 
 end
 end
