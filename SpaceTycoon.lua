@@ -1,8 +1,7 @@
 local plr = game.Players.LocalPlayer
-local ids = loadstring(game:HttpGet("https://pastebin.com/raw/YPA5bpdr", true))()
-	for i,v in pairs(ids) do
-		if v == plr.UserId then
-		print("Found ID")
+if plr:IsInGroup(7482906) then
+    print(plr.Name.." Is in the group... Loading Script Now")
+
 	
 
 --[[
@@ -676,7 +675,8 @@ settings().Rendering.QualityLevel = 1
     wait(1)
     Secs +=1
 end
+else
+    plr:Kick("Join the group!")
+end
 
-end
-end
 
