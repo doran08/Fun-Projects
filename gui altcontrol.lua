@@ -121,7 +121,7 @@ local Dropdown = main:CreateDropdown({
         
         game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
         
-         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(591.396118, 34.5070686, -146.159561, 0.0698467195, -4.91725913e-08, -0.997557759, 5.03374231e-08, 1, -4.57684664e-08, 0.997557759, -4.70177071e-08, 0.0698467195)
+         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(626.700806, 47.9999886, -93.8858948, 0.644386828, -5.84304054e-08, 0.764699697, 2.29837011e-10, 1, 7.62159331e-08, -0.764699697, -4.89367871e-08, 0.644386828)
    end
    end,
 })
