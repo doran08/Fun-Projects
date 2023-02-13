@@ -1,4 +1,7 @@
-workspace:FindFirstChildOfClass('Terrain').WaterWaveSize = 0
+getgenv().HostUser = "doran08"
+
+if game.Players.LocalPlayer.Name == getgenv().HostUser then
+    workspace:FindFirstChildOfClass('Terrain').WaterWaveSize = 0
 workspace:FindFirstChildOfClass('Terrain').WaterWaveSpeed = 0
 workspace:FindFirstChildOfClass('Terrain').WaterReflectance = 0
 workspace:FindFirstChildOfClass('Terrain').WaterTransparency = 0
@@ -43,7 +46,10 @@ settings().Rendering.QualityLevel = 1
 
 
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
-
+getgenv().prefix = "!"
+--// Main
+local FpsAmount = 60
+local CustomAmount = nil
 --// Calculate 1
 local droppers = 1
 local DHC = 0
@@ -128,6 +134,166 @@ local Dropdown = main:CreateDropdown({
 
 
 
+local Dropdown = main:CreateDropdown({
+   Name = "Emotes",
+   Options = {"dolphin","monkey","floss","shuffle","Stop Dancing"},
+   CurrentOption = "Option 1",
+   Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Option)
+  if Option == "dolphin" then
+   local args = {
+      [1] = getgenv().prefix.."dolphin",
+      [2] = "All"
+  }
+  
+  game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+  elseif Option == "monkey" then
+   local args = {
+      [1] = getgenv().prefix.."monkey",
+      [2] = "All"
+  }
+  
+  game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+   elseif Option == "floss" then
+      local args = {
+         [1] = getgenv().prefix.."floss",
+         [2] = "All"
+     }
+     
+     game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+      elseif Option == "shuffle" then
+         local args = {
+            [1] = getgenv().prefix.."shuffle",
+            [2] = "All"
+        }
+        
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+   elseif Option == "Stop Dancing" then
+            local args = {
+               [1] = getgenv().prefix.."stopdance",
+               [2] = "All"
+           }
+           
+           game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+  end
+   end,
+})
+
+local Button = main:CreateButton({
+   Name = "Drop",
+   Callback = function()
+      local args = {
+         [1] = getgenv().prefix.."drop",
+         [2] = "All"
+     }
+     
+     game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+   end,
+})
+
+local Button = main:CreateButton({
+   Name = "Stop Dropping",
+   Callback = function()
+      local args = {
+         [1] = getgenv().prefix.."stop",
+         [2] = "All"
+     }
+     
+     game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+   end,
+})
+
+
+local Input = main:CreateInput({
+   Name = "FPS",
+   PlaceholderText = "Input fps amount",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(Text)
+
+    FpsAmount = Text
+
+   
+   end,
+})
+local Button = main:CreateButton({
+   Name = "Set Fps",
+   Callback = function()
+      local args = {
+         [1] = getgenv().prefix.."fps "..FpsAmount,
+         [2] = "All"
+     }
+     
+     game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+   end,
+})
+
+
+local Button = main:CreateButton({
+   Name = "How much money you have",
+   Callback = function()
+      local args = {
+         [1] = getgenv().prefix.."money?",
+         [2] = "All"
+     }
+     
+     game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+   end,
+})
+
+local Button = main:CreateButton({
+   Name = "Cash Aura",
+   Callback = function()
+      local args = {
+         [1] = getgenv().prefix.."aura",
+         [2] = "All"
+     }
+     
+     game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+   end,
+})
+
+local Button = main:CreateButton({
+   Name = "Stop Cash Aura",
+   Callback = function()
+      local args = {
+         [1] = getgenv().prefix.."stopaura",
+         [2] = "All"
+     }
+     
+     game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+   end,
+})
+
+
+
+local Input = main:CreateInput({
+   Name = "Custom Drop",
+   PlaceholderText = "Input Custom amount",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(Text)
+
+    CustomAmount = Text
+
+   
+   end,
+})
+local Button = main:CreateButton({
+   Name = "Drop Custom Amount",
+   Callback = function()
+      local args = {
+         [1] = getgenv().prefix.."cdrop "..CustomAmount,
+         [2] = "All"
+     }
+     
+     game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+   end,
+})
+
+
+
+
+
+
 
 
  local Calculate1 = Window:CreateTab("Time to drop", 12411648417)
@@ -201,7 +367,7 @@ local Input = Calculate1:CreateInput({
 
  local Calculate2 = Window:CreateTab("Amount per time", 12411648417)
 
-local Input = Calculate1:CreateInput({
+local Input = Calculate2:CreateInput({
    Name = "Droppers",
    PlaceholderText = "Input Droppers(max 38)",
    RemoveTextAfterFocusLost = false,
@@ -213,7 +379,7 @@ local Input = Calculate1:CreateInput({
    end,
 })
 
-local Button = Calculate1:CreateButton({
+local Button = Calculate2:CreateButton({
    Name = "Calculate Dahood cash",
    Callback = function()
       local final2 = droppers2 *7000 
@@ -232,7 +398,6 @@ local Button = Calculate1:CreateButton({
          },
       },
       })
-
-
    end,
 })
+    end
