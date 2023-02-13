@@ -1,7 +1,4 @@
-getgenv().HostUser = "doran08"
-
-if game.Players.LocalPlayer.Name == getgenv().HostUser then
-    workspace:FindFirstChildOfClass('Terrain').WaterWaveSize = 0
+workspace:FindFirstChildOfClass('Terrain').WaterWaveSize = 0
 workspace:FindFirstChildOfClass('Terrain').WaterWaveSpeed = 0
 workspace:FindFirstChildOfClass('Terrain').WaterReflectance = 0
 workspace:FindFirstChildOfClass('Terrain').WaterTransparency = 0
@@ -46,7 +43,7 @@ settings().Rendering.QualityLevel = 1
 
 
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
-getgenv().prefix = "!"
+
 --// Main
 local FpsAmount = 60
 local CustomAmount = nil
@@ -400,4 +397,3 @@ local Button = Calculate2:CreateButton({
       })
    end,
 })
-    end
